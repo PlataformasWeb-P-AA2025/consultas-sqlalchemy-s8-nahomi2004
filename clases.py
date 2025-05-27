@@ -18,11 +18,17 @@ class Departamento(Base):
     nombre   = Column(String(100))
     cursos   = relationship('Curso', back_populates='departamento')
 
+    def __repr__(self):
+        return f"Departamento(id='{self.id}', nombre='{self.nombre}...')"
+
 class Instructor(Base):
     __tablename__ = 'instructor'
     id       = Column(Integer, primary_key=True)
     nombre   = Column(String(200))
     cursos   = relationship('Curso', back_populates='instructor')
+
+    def __repr__(self):
+        return f"Instructor(id='{self.id}', nombre='{self.nombre}...')"
 
 class Curso(Base):
     __tablename__ = 'curso'
@@ -59,6 +65,9 @@ class Tarea(Base):
     curso     = relationship('Curso',    back_populates='tareas')
     entregas  = relationship('Entrega',  back_populates='tarea')
 
+    def __repr__(self):
+        return f"Tarea(id='{self.id}', curso_id='{self.curso_id}', titulo='{self.titulo}', fecha_entrega='{self.fecha_entrega}', curso='{self.curso}, entregas='{self.entregas}')"
+
 class Entrega(Base):
     __tablename__ = 'entrega'
     id          = Column(Integer, primary_key=True)
@@ -68,5 +77,8 @@ class Entrega(Base):
     calificacion = Column(Numeric)
     tarea        = relationship('Tarea',     back_populates='entregas')
     estudiante   = relationship('Estudiante',back_populates='entregas')
+
+    def __repr__(self):
+        return f"Entrega(id='{self.id}', tarea_id='{self.tarea_id}', estudiante_id='{self.estudiante_id}', fecha_envio='{self.fecha_envio}', calificacion='{self.calificacion}, tarea='{self.tarea}', estudiante='{self.estudiante}')"
 
 Base.metadata.create_all(engine)
