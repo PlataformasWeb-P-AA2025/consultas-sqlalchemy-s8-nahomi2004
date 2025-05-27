@@ -30,12 +30,13 @@ engine = create_engine(cadena_base_datos)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Hice join hasta llegar a Departamento y de ahi filtre
+# Hice join hasta llegar a Departamento y de ahi filter
 # Creo que esta mal, snif
-entregas_artes = session.query(
-					Entrega
-				).join(Estudiante).join(Inscripcion).\
-				join(Curso).join(Departamento).\
+# Voy desde Entrega Tarea Curso y Departamente y luego de Entrega Estudiante e Incripciones,
+# esto es para asegurar que el estudiante realmente este inscrito
+entregas_artes = session.query(Entrega).join(Estudiante.tarea).join(Tarea.curso).\
+				join(Curso.departamento).join(Entrega.estudiante).\
+				join(Estudiante.inscripciones).\
 				filter(Departamento.nombre == 'Arte').all()
 
 for e in entregas_artes:
