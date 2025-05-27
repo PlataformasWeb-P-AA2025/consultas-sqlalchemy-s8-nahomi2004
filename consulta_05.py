@@ -26,14 +26,20 @@ engine = create_engine(cadena_base_datos)
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Lo que obtengo es el titulo de la tarea, junto al nombre del estudiante
-# luego con func cuento cuantas tareas por estudiante hay
-# trazo el camino desde tareas a estudiante y con in_
-# filtro los nombres de los estudiantes
-# finalmente agrupo por tarea y listo!!
-
+# Otengo todos los cursos
 cursos = session.query(Curso).all()
 
+# Luego de eso recorro cada objeto con un for, y dentro de este for voy
+# a realizar las entregas por curso y presentar su promedio de calificacion
+# Hay que recordar que Cursos tiene una lista de entregas en este caso, 
+# entonces a esa lista la debo recorrer con otro for y en este caso
+# me ayudo de un array para acumularlas en un solo lado y poder trabajar
+# una vez reocrrido ese segundo for, debo comprobar si entregas esta lleno
+# o no, asi sin preocupaciones, puedo sacar el promedio.
+# El promedio lo saco sumando la calificacion por cada entrega (me ayudo
+# de un ciclo for) En caso de que haya un valor None o nulo, pues no se suma
+# se lo descarta. Finalmente a ese acumulador llamado total lo utilizamos 
+# para sacar el promedio
 for e in cursos:
 	entregas = []
 
