@@ -48,6 +48,11 @@ class Estudiante(Base):
     inscripciones  = relationship('Inscripcion', back_populates='estudiante')
     entregas       = relationship('Entrega',     back_populates='estudiante')
 
+    def __repr__(self):
+        return f"Estudiante(id='{self.id}', nombre='{self.nombre}')"
+
+
+
 class Inscripcion(Base):
     __tablename__ = 'inscripcion'
     estudiante_id = Column(Integer, ForeignKey('estudiante.id'), primary_key=True)
@@ -66,7 +71,7 @@ class Tarea(Base):
     entregas  = relationship('Entrega',  back_populates='tarea')
 
     def __repr__(self):
-        return f"Tarea(id='{self.id}', curso_id='{self.curso_id}', titulo='{self.titulo}', fecha_entrega='{self.fecha_entrega}', curso='{self.curso}, entregas='{self.entregas}')"
+        return f"Tarea(id='{self.id}', curso_id='{self.curso_id}', titulo='{self.titulo}', fecha_entrega='{self.fecha_entrega}')"
 
 class Entrega(Base):
     __tablename__ = 'entrega'

@@ -30,6 +30,8 @@ engine = create_engine(cadena_base_datos)
 Session = sessionmaker(bind=engine)
 session = Session()
 
+# Hice join hasta llegar a Departamento y de ahi filtre
+# Creo que esta mal, snif
 entregas_artes = session.query(
 					Entrega
 				).join(Estudiante).join(Inscripcion).\
