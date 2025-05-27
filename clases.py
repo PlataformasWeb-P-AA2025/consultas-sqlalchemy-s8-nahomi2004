@@ -41,6 +41,9 @@ class Curso(Base):
     inscripciones   = relationship('Inscripcion', back_populates='curso')
     tareas          = relationship('Tarea',       back_populates='curso')
 
+    def __repr__(self):
+        return f"Curso(id='{self.id}', titulo='{self.titulo}', departamento_id='{self.departamento_id}', instructor_id='{self.instructor_id}', departamento='{self.departamento}', instructor='{self.instructor}', inscripciones='{self.inscripciones}', tareas='{self.tareas}')"
+
 class Estudiante(Base):
     __tablename__ = 'estudiante'
     id             = Column(Integer, primary_key=True)
@@ -61,6 +64,9 @@ class Inscripcion(Base):
     estudiante    = relationship('Estudiante', back_populates='inscripciones')
     curso         = relationship('Curso',      back_populates='inscripciones')
 
+    def __repr__(self):
+        return f"Inscripcion(estudiante_id='{self.estudiante_id}', curso_id='{self.curso_id}, fecha_inscripcion='{self.fecha_inscripcion}')"
+
 class Tarea(Base):
     __tablename__ = 'tarea'
     id        = Column(Integer, primary_key=True)
@@ -71,7 +77,7 @@ class Tarea(Base):
     entregas  = relationship('Entrega',  back_populates='tarea')
 
     def __repr__(self):
-        return f"Tarea(id='{self.id}', curso_id='{self.curso_id}', titulo='{self.titulo}', fecha_entrega='{self.fecha_entrega}')"
+        return f"Tarea(id='{self.id}', curso_id='{self.curso_id}', titulo='{self.titulo}', fecha_entrega='{self.fecha_entrega}', entregas='{self.entregas}')"
 
 class Entrega(Base):
     __tablename__ = 'entrega'
